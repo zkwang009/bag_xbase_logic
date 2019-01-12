@@ -1,0 +1,44 @@
+// VerilogA for Invctle, thermal_control, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+`define N 16
+
+module thermal_ctrl(out);
+
+output [`N-1:0] out;
+electrical [`N-1:0] out;
+
+parameter integer code = 0 from [0:inf);
+parameter integer mode = 0 from [0:1];
+parameter real trise = 1p from [0:inf);
+parameter real tfall = 1p from [0:inf);
+parameter real tdel = 0 from [0:inf);
+parameter real vlogic_high = 1.2 from [0:inf);
+parameter real vlogic_low = 0 from [0:inf);
+
+integer num;
+real data[`N-1:0];
+integer i;
+
+analog begin
+
+    @(initial_step) begin
+        num = code;
+        for (i=`N-1; i>=0; i=i-1) begin
+            if (num>=pow(2,i)) begin
+                data[i] = vlogic_high*(1-mode) + vlogic_low*mode;
+                num = num - pow(2,i);
+            end
+            else
+                data[i] = vlogic_low*(1-mode) + vlogic_high*mode;;
+            end
+        end
+
+    generate i (0, `N-1)
+        V(out[i]) <+ transition(data[i],tdel,trise,tfall);
+
+end
+endmodule
+

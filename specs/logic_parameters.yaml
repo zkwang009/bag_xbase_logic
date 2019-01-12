@@ -1,0 +1,921 @@
+
+# global parameters
+
+temp_lib: 'bag_xbase_logic'
+impl_lib: 'bag_xbase_logic_generated'
+tb_lib: 'bag_xbase_logic_testbenches'
+
+grid_opts:
+  layers: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  widths: [0.080, 0.080, 0.080, 0.080, 0.080, 0.080, 0.080, 0.4, 0.4]
+  spaces: [0.060, 0.060, 0.060, 0.060, 0.060, 0.060, 0.060, 0.4, 0.4]
+  bot_dir: 'y'
+  width_override: {}
+
+model_dir: 'bag_xbase_logic/files/model'
+sim_view: 'av_extracted'
+
+# shared parameters
+shared_parameters: &SHARED
+    lch: !!float 36e-9
+    wn: 4
+    wp: 4
+    ptap_w: 4
+    ntap_w: 4
+    g_width_ntr: 1
+    ds_width_ntr: 1
+    show_pins: True
+    ndum: 2
+    ndum_side: 0
+    debug: True
+
+################################
+# inv paramerters
+################################
+inv_cell_name: 'inv'
+inv_tb_cell: 'tb_inv_tran'
+
+inv_sch_params: &INV_SCH_PARAMS
+  <<: *SHARED
+  nfn: 2
+  nfp: 2
+  intent: 'ulvt'
+
+inv_lay_params: &INV_LAY_PARAMS
+  <<: *SHARED
+  nfn: 2
+  nfp: 2
+  intent: 'ulvt'
+
+inv_mdl_params: &INV_MDL_PARAMS
+  view_name: ''
+  delay: 7
+
+inv_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+inv_tb_params: {}
+
+inv_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+################################
+# tinv paramerters
+################################
+tinv_cell_name: 'tinv'
+tinv_tb_cell: 'tb_tinv_tran'
+
+tinv_sch_params: &TINV_SCH_PARAMS
+  <<: *SHARED
+  nfn0: 2
+  nfp0: 2
+  nfn1: 2
+  nfp1: 2
+  intent: 'ulvt'
+
+tinv_lay_params: &TINV_LAY_PARAMS
+  <<: *SHARED
+  nfn0: 2
+  nfp0: 2
+  nfn1: 2
+  nfp1: 2
+  intent: 'ulvt'
+
+tinv_mdl_params: &TINV_MDL_PARAMS
+  view_name: ''
+  delay: 1
+
+tinv_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+tinv_tb_params: {}
+
+tinv_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+################################
+# tgate paramerters
+################################
+tgate_cell_name: 'tgate'
+tgate_tb_cell: 'tb_tgate_tran'
+
+tgate_sch_params: &TGATE_SCH_PARAMS
+  <<: *SHARED
+  nfn: 2
+  nfp: 2
+  intent: 'ulvt'
+
+tgate_lay_params: &TGATE_LAY_PARAMS
+  <<: *SHARED
+  nfn: 2
+  nfp: 2
+  intent: 'ulvt'
+
+tgate_mdl_params: &TGATE_MDL_PARAMS
+  view_name: ''
+  delay: 1
+
+tgate_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+tgate_tb_params: {}
+
+tgate_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+################################
+# buffer parameters
+################################
+buffer_cell_name: 'buffer'
+buffer_tb_cell: 'tb_buffer_tran'
+
+buffer_sch_params:  &BUF_SCH_PARAMS
+  <<: *SHARED
+  nf_invx: 4
+  nf_inv0: 4
+  nf_inv1: 4
+  intent: 'ulvt'
+  invert: False
+
+buffer_lay_params:  &BUF_LAY_PARAMS
+  <<: *SHARED
+  nf_invx: 4
+  nf_inv0: 4
+  nf_inv1: 4
+  intent: 'ulvt'
+  debug: True
+
+buffer_mdl_params:  &BUF_MDL_PARAMS
+  <<: *SHARED
+  view_name: ''
+  delay: 1
+  invert: False
+#  XINVX:
+#    <<: *INV_MDL_PARAMS
+#  XINV0:
+#    <<: *INV_MDL_PARAMS
+#    delay: 2
+#  XINV1:
+#    <<: *INV_MDL_PARAMS
+
+buffer_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+buffer_tb_params: {}
+
+buffer_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+################################
+# nand parameters
+################################
+nand_cell_name: 'nand'
+nand_tb_cell: 'tb_nand_tran'
+
+nand_sch_params: &NAND_SCH_PARAMS
+  <<: *SHARED
+  nfn0: 2
+  nfn1: 2
+  nfp0: 2
+  nfp1: 2
+  intent: 'ulvt'
+
+nand_lay_params: &NAND_LAY_PARAMS
+  <<: *SHARED
+  nfn: 2
+  nfp: 2
+  intent: 'ulvt'
+
+nand_mdl_params: &NAND_MDL_PARAMS
+  <<: *SHARED
+  view_name: ''
+  delay: 1
+
+nand_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+nand_tb_params: {}
+
+nand_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+################################
+# nor parameters
+################################
+nor_cell_name: 'nor'
+nor_tb_cell: 'tb_nor_tran'
+
+nor_sch_params:
+  <<: *SHARED
+  nfn0: 2
+  nfn1: 2
+  nfp0: 2
+  nfp1: 2
+  intent: 'ulvt'
+
+nor_lay_params:
+  <<: *SHARED
+  nfn: 2
+  nfp: 2
+  intent: 'ulvt'
+
+nor_mdl_params:
+  <<: *SHARED
+  view_name: ''
+  delay: 1
+
+nor_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+nor_tb_params: {}
+
+nor_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+################################
+# and parameters
+################################
+and_cell_name: 'and_gate'
+and_tb_cell: 'tb_and_tran'
+
+and_sch_params:
+  <<: *SHARED
+  nfn: 2
+  nfp: 2
+  nf_inv: 2
+  intent: 'ulvt'
+
+and_lay_params:
+  <<: *SHARED
+  nfn: 2
+  nfp: 2
+  nf_inv: 2
+  intent: 'ulvt'
+
+and_mdl_params:
+  <<: *SHARED
+  view_name: ''
+  delay: 1
+
+and_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+and_tb_params: {}
+
+and_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+################################
+# or parameters
+################################
+or_cell_name: 'or_gate'
+or_tb_cell: 'tb_or_tran'
+
+or_sch_params:
+  <<: *SHARED
+  nfn: 2
+  nfp: 2
+  nf_inv: 2
+  intent: 'ulvt'
+
+or_lay_params:
+  <<: *SHARED
+  nfn: 2
+  nfp: 2
+  nf_inv: 2
+  intent: 'ulvt'
+
+or_mdl_params:
+  <<: *SHARED
+  view_name: ''
+  delay: 1
+
+or_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+or_tb_params: {}
+
+or_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+################################
+# xor parameters
+################################
+xor_cell_name: 'xor'
+xor_tb_cell: 'tb_xor_tran'
+
+xor_sch_params: &XOR_SCH_PARAMS
+  inv_params:
+    <<: *INV_SCH_PARAMS
+    nfn: 2
+    nfp: 2
+  <<: *SHARED
+  nfn_xor: 2
+  nfp_xor: 2
+  intent: 'ulvt'
+
+xor_lay_params: &XOR_LAY_PARAMS
+  <<: *SHARED
+  nf_inv: 4
+  nf_xor: 4
+  intent: 'ulvt'
+
+xor_mdl_params: &XOR_MDL_PARAMS
+  view_name: ''
+  delay: 2
+
+xor_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+xor_tb_params: {}
+
+xor_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+################################
+# xnor parameters
+################################
+xnor_cell_name: 'xnor'
+xnor_tb_cell: 'tb_xnor_tran'
+
+xnor_sch_params:
+  inv_params:
+    <<: *INV_SCH_PARAMS
+    nfn: 2
+    nfp: 2
+  <<: *SHARED
+  nfn_xnor: 2
+  nfp_xnor: 2
+  intent: 'ulvt'
+
+xnor_lay_params:
+  <<: *SHARED
+  nf_inv: 4
+  nf_xnor: 4
+  intent: 'ulvt'
+  debug: True
+
+xnor_mdl_params:
+  view_name: ''
+  delay: 2
+
+
+xnor_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+xnor_tb_params: {}
+
+xnor_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+################################
+# dff parameters
+################################
+dff_cell_name: 'dff'
+dff_tb_cell: 'tb_dff_tran'
+
+dff_sch_params: &DFF_SCH_PARAMS
+  clk_inv_params:
+    <<: *INV_SCH_PARAMS
+    nfn: 2
+    nfp: 2
+  drv_tinv_params:
+    <<: *TINV_SCH_PARAMS
+    nfn0: 2
+    nfn1: 2
+    nfp0: 2
+    nfp1: 2
+  ff_inv_params:
+    <<: *INV_SCH_PARAMS
+    nfn: 2
+    nfp: 2
+  fb_tinv_params:
+    <<: *TINV_SCH_PARAMS
+    nfn0: 2
+    nfn1: 2
+    nfp0: 2
+    nfp1: 2
+  debug: False
+
+dff_lay_params: &DFF_LAY_PARAMS
+  <<: *SHARED
+  nf_inv0: 2
+  nf_inv1: 2
+  nf_inv2: 2
+  nf_inv3: 2
+  nf_tinv0_0: 2
+  nf_tinv0_1: 2
+  nf_tinv1_0: 2
+  nf_tinv1_1: 2
+  nf_tinv2_0: 2
+  nf_tinv2_1: 2
+  nf_tinv3_0: 2
+  nf_tinv3_1: 2
+
+  intent: 'ulvt'
+  debug: True
+
+dff_mdl_params: &DFF_MDL_PARAMS
+#  view_name: ''
+#  delay: 2
+
+  INV0:
+    <<: *INV_MDL_PARAMS
+    delay: 0
+  INV1:
+    <<: *INV_MDL_PARAMS
+    delay: 0
+  INV2:
+    <<: *INV_MDL_PARAMS
+    delay: 0
+  INV3:
+    <<: *INV_MDL_PARAMS
+    delay: 0
+  TINV0:
+    <<: *TINV_MDL_PARAMS
+    delay: 1
+  TINV1:
+    <<: *TINV_MDL_PARAMS
+    delay: 1
+  TINV2:
+    <<: *TINV_MDL_PARAMS
+    delay: 1
+  TINV3:
+    <<: *TINV_MDL_PARAMS
+    delay: 1
+#  I5: {}
+#  I6: {}
+#  I7: {}
+#  I8: {}
+#  I9: {}
+#  I10: {}
+#  I11: {}
+#  I12: {}
+
+dff_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+dff_tb_params: {}
+
+dff_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+################################
+# dff_strst parameters
+################################
+dff_strst_cell_name: 'dff_strst'
+dff_strst_tb_cell: 'tb_dff_strst_tran'
+
+dff_strst_sch_params: &DFF_STRST_SCH_PARAMS
+  clk_inv_params:
+    <<: *INV_SCH_PARAMS
+    nfn: 2
+    nfp: 2
+  r_st_inv_params:
+    <<: *INV_SCH_PARAMS
+    nfn: 2
+    nfn: 2
+  drv_tinv_params:
+    <<: *TINV_SCH_PARAMS
+    nfn0: 2
+    nfp0: 2
+    nfn1: 2
+    nfp1: 2
+  ff_nand_params:
+    <<: *NAND_SCH_PARAMS
+    nfn0: 2
+    nfn1: 2
+    nfp0: 2
+    nfp1: 2
+    debug: True
+  fb_nand_params:
+    <<: *NAND_SCH_PARAMS
+    nfn0: 2
+    nfn1: 2
+    nfp0: 2
+    nfp1: 2
+    debug: True
+  fb_tgate_params:
+    <<: *TGATE_SCH_PARAMS
+    nfn0: 2
+    nfn1: 2
+    nfp0: 2
+    nfp1: 2
+  debug: False
+
+dff_strst_lay_params:  &DFF_STRST_LAY_PARAMS
+  {}
+
+dff_strst_mdl_params:   &DFF_STRST_MDL_PARAMS
+  view_name: ''
+  delay: 2
+
+dff_strst_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+dff_strst_tb_params: {}
+
+dff_strst_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+################################
+# prbs parameters
+################################
+prbs_cell_name: 'prbs'
+prbs_tb_cell: 'tb_prbs_tran'
+
+prbs_sch_params:
+  buf_sch_params:
+    <<: *BUF_SCH_PARAMS
+  dff_sch_params:
+    <<: *DFF_STRST_SCH_PARAMS
+  xor_sch_params:
+    <<: *XOR_SCH_PARAMS
+  stage: 7
+  fb_idx: 3
+  debug: False
+
+prbs_lay_params:
+    <<: *SHARED
+    dff_nf_inv0: 2
+    dff_nf_inv1: 2
+    dff_nf_inv2: 2
+    dff_nf_inv3: 2
+    dff_nf_tinv0_0: 2
+    dff_nf_tinv0_1: 2
+    dff_nf_tinv1_0: 2
+    dff_nf_tinv1_1: 2
+    dff_nfn_nand0: 2
+    dff_nfp_nand0: 2
+    dff_nfn_nand1: 2
+    dff_nfp_nand1: 2
+    dff_nfn_nand2: 2
+    dff_nfp_nand2: 2
+    dff_nfn_nand3: 2
+    dff_nfp_nand3: 2
+    dff_nf_tgate0: 2
+    dff_nf_tgate1: 2
+    buf_nf_inv0: 4
+    buf_nf_inv1: 4
+    xor_nf_inv: 4
+    xor_nf_xor: 4
+    stage: 3
+    intent: 'ulvt'
+    debug: True
+
+prbs_mdl_params:
+  XDFF:
+    <<: *DFF_STRST_MDL_PARAMS
+  CLKBUF:
+    <<: *BUF_MDL_PARAMS
+  RSTBUF:
+    <<: *BUF_MDL_PARAMS
+
+prbs_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+prbs_tb_params: {}
+
+prbs_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+################################
+# delay_stage parameters
+################################
+delay_stage_cell_name: 'delay_stage'
+delay_stage_tb_cell: 'tb_delay_stage_tran'
+
+delay_stage_sch_params:
+  buf_sch_params:
+    <<: *BUF_SCH_PARAMS
+  dff_sch_params:
+    <<: *DFF_SCH_PARAMS
+    debug: True
+  n_stage: 2
+  debug: False
+
+delay_stage_lay_params:
+    <<: *SHARED
+    dff_nf_inv0: 2
+    dff_nf_inv1: 2
+    dff_nf_inv2: 2
+    dff_nf_inv3: 2
+    dff_nf_tinv0_0: 2
+    dff_nf_tinv0_1: 2
+    dff_nf_tinv1_0: 2
+    dff_nf_tinv1_1: 2
+    dff_nf_tinv2_0: 2
+    dff_nf_tinv2_1: 2
+    dff_nf_tinv3_0: 2
+    dff_nf_tinv3_1: 2
+    buf_nf_inv0: 2
+    buf_nf_inv1: 6
+    stage: 2
+    intent: 'ulvt'
+    debug: True
+
+delay_stage_mdl_params:
+  XDFF:
+    <<: *DFF_MDL_PARAMS
+  XBUF:
+    <<: *BUF_MDL_PARAMS
+
+delay_stage_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+delay_stage_tb_params: {}
+
+delay_stage_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+
+
+
+
+# mux parameters
+mux_cell_name: '2to1mux'
+mux_tb_cell: 'tb_2to1mux_tran'
+
+mux_sch_params: {}
+
+# ctrl_buf_array parameters
+ctrl_buf_array_cell_name: 'ctrl_buf_array'
+ctrl_buf_array_tb_cell: 'tb_ctrl_buf_array_tran'
+
+ctrl_buf_array_sch_params: {}
+
+ctrl_buf_array_lay_params:
+    <<: *SHARED
+    pi_res: 8
+    nf_inv0: 4
+    nf_inv1: 4
+    intent: 'ulvt'
+    ndum_cell: 4
+
+ctrl_buf_array_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+ctrl_buf_array_tb_params: {}
+
+ctrl_buf_array_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+
+# clk_cell_array parameters
+clk_cell_array_cell_name: 'clk_cell_array'
+clk_cell_array_tb_cell: 'tb_clk_cell_array_tran'
+
+clk_cell_array_sch_params: {}
+
+clk_cell_array_lay_params:
+
+    <<: *SHARED
+    pi_res: 8
+    nf_inv: 4
+    nf_tinv0: 4
+    nf_tinv1: 4
+    intent: 'ulvt'
+
+clk_cell_array_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+clk_cell_array_tb_params: {}
+
+clk_cell_array_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+# clk_cell parameters
+clk_cell_cell_name: 'clk_cell'
+clk_cell_tb_cell: 'tb_clk_cell_tran'
+
+clk_cell_sch_params: {}
+
+clk_cell_lay_params:
+
+    <<: *SHARED
+    nfn_inv: 4
+    nfp_inv: 4
+    nfn_tinv0: 4
+    nfn_tinv1: 4
+    nfp_tinv0: 4
+    nfp_tinv1: 4
+    intent: 'ulvt'
+
+clk_cell_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+clk_cell_tb_params: {}
+
+clk_cell_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+# inv_PI parameters
+inv_PI_cell_name: 'inv_PI'
+inv_PI_tb_cell: 'tb_inv_PI_tran'
+
+inv_PI_sch_params: {}
+
+inv_PI_lay_params:
+
+    <<: *SHARED
+    pi_res: 8
+    ctrl_nf_inv0: 2
+    ctrl_nf_inv1: 2
+    clk_nf_inv: 2
+    clk_nf_tinv0: 2
+    clk_nf_tinv1: 2
+    buf_nf_inv0: 8
+    buf_nf_inv1: 4
+    cload_nf: 40
+    intent: 'ulvt'
+
+
+inv_PI_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+inv_PI_tb_params:
+    vbias: !!float 0.8
+    vamp: !!float 0.5
+
+inv_PI_opts:
+    run_dsn: True
+    run_extraction: True
+    run_simulation: False
+    
+    
+
+    
+    
+
+
+    
+
+
+mux_lay_params:
+
+    <<: *SHARED
+    nf_inv0: 2
+    nf_tinv_0: 2
+    nf_tinv_1: 2
+    nf_inv2: 2
+    intent: 'ulvt'
+    debug: True
+
+mux_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+mux_tb_params: {}
+
+mux_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+# multi-mux parameters
+multi_mux_cell_name: 'multi_mux'
+multi_mux_tb_cell: 'tb_multi_multi_mux_tran'
+
+multi_mux_sch_params: {}
+
+multi_mux_lay_params:
+
+    <<: *SHARED
+    nf_inv0: 2
+    nf_tinv_0: 2
+    nf_tinv_1: 2
+    nf_inv2: 2
+    mux_stage: 3
+    intent: 'ulvt'
+
+multi_mux_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+multi_mux_tb_params: {}
+
+multi_mux_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+    
+
+
+    
+
+    
+# clkdiv parameters
+clkdiv_cell_name: 'clkdiv'
+clkdiv_tb_cell: 'tb_clkdiv_tran'
+
+clkdiv_sch_params: {}
+
+clkdiv_lay_params:
+
+    <<: *SHARED
+    dff_nf_inv0: 4
+    dff_nf_inv1: 4
+    dff_nf_inv2: 4
+    dff_nf_inv3: 4
+    dff_nf_tinv0_0: 4
+    dff_nf_tinv0_1: 4
+    dff_nf_tinv1_0: 4
+    dff_nf_tinv1_1: 4
+    dff_nfn_nand0: 8
+    dff_nfp_nand0: 4
+    dff_nfn_nand1: 4
+    dff_nfp_nand1: 2
+    dff_nfn_nand2: 8
+    dff_nfp_nand2: 4
+    dff_nfn_nand3: 4
+    dff_nfp_nand3: 2
+    dff_nf_tgate0: 2
+    dff_nf_tgate1: 2
+    buf_nf_inv0: 2
+    buf_nf_inv1: 6
+    xor_nf_inv: 2
+    xor_nf_xor: 4
+    div_ratio: 3
+    intent: 'ulvt'
+    debug: True
+    out_list: !!null
+
+clkdiv_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+clkdiv_tb_params: {}
+
+clkdiv_opts:
+    run_dsn: True
+    run_extraction: True
+    run_simulation: False
+    
+
+
+    
+
+
+    
+
+    
+# inv_mux paramerters
+inv_mux_cell_name: 'inv_mux'
+inv_mux_tb_cell: 'tb_inv_mux_tran'
+
+inv_mux_sch_params: {}
+
+inv_mux_lay_params:
+
+    <<: *SHARED
+    inv_nf: 2
+    mux_nf_inv0: 2
+    mux_nf_tinv_0: 2
+    mux_nf_tinv_1: 2
+    mux_nf_inv2: 2
+    intent: 'ulvt'
+
+inv_mux_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+inv_mux_tb_params: {}
+
+inv_mux_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+    
+
+# cload paramerters
+cload_cell_name: 'cload'
+cload_tb_cell: 'tb_cload_tran'
+
+cload_sch_params: {}
+
+cload_lay_params:
+
+    <<: *SHARED
+    nfn: 2
+    nfp: 2
+    intent: 'ulvt'
+
+cload_sim_envs: ["tt"] #, "ff_hot", "ss_cold"]
+
+cload_tb_params: {}
+
+cload_opts:
+    run_dsn: True
+    run_extraction: False
+    run_simulation: False
+
+
+

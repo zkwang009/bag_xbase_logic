@@ -1,0 +1,44 @@
+// VerilogA for test, bin2therm, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+`define N 7
+`define NUM 2**`N
+
+module bin2therm(bin_in, therm_out);
+
+input [`N-1:0] bin_in;
+output [`NUM-1:0] therm_out;
+
+electrical [`N-1:0] bin_in;
+electrical [`NUM-1:0] therm_out;
+
+parameter real trise = 1p from [0:inf);
+parameter real tfall = 1p from [0:inf);
+parameter real tdel = 0 from [0:inf);
+parameter real vtrans = 0.5 from [0:inf);
+parameter real vlogic_high = 1.2 from [0:inf);
+parameter real vlogic_low = 0 from [0:inf);
+
+integer sum;
+integer i;
+real out_v [`NUM-1:0];
+
+analog begin
+    sum = 0;
+    generate i (0,`N-1)
+	sum=sum+((V(bin_in[i])>vtrans)?1:0)*pow(2,i);
+	
+    for (i=0; i<=`NUM-1; i=i+1)
+	if(i<=sum)
+            out_v[i]=vlogic_high;
+	else
+	    out_v[i]=vlogic_low;
+	
+    generate i (0,`NUM-1)
+        V(therm_out[i])<+transition(out_v[i],tdel, tfall,trise);
+
+end
+
+endmodule

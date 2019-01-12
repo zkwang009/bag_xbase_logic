@@ -1,0 +1,63 @@
+# -*- coding: utf-8 -*-
+
+from typing import Dict
+
+import os
+import pkg_resources
+
+from bag.design import Module
+
+
+yaml_file = pkg_resources.resource_filename(__name__, os.path.join('netlist_info', 'cload.yaml'))
+
+
+# noinspection PyPep8Naming
+class bag_xbase_logic__cload(Module):
+    """Module for library xbase_logic_templates cell cload.
+
+    Fill in high level description here.
+    """
+
+    def __init__(self, bag_config, parent=None, prj=None, **kwargs):
+        Module.__init__(self, bag_config, yaml_file, parent=parent, prj=prj, **kwargs)
+
+    @classmethod
+    def get_params_info(cls):
+        # type: () -> Dict[str, str]
+        """Returns a dictionary from parameter names to descriptions.
+
+        Returns
+        -------
+        param_info : Optional[Dict[str, str]]
+            dictionary from parameter names to descriptions.
+        """
+        return dict(
+            lch='transistor channel length',
+            wn='NMOS width',
+            wp='PMOS width',
+            nfn='NMOS finger number',
+            nfp='PMOS finger number',
+            intent='transistor threshold',
+            dum_info='dummy info',
+        )
+
+    def design(self, lch, wn, wp, nfn, nfp, intent, dum_info, **kwargs):
+        """To be overridden by subclasses to design this module.
+
+        This method should fill in values for all parameters in
+        self.parameters.  To design instances of this module, you can
+        call their design() method or any other ways you coded.
+
+        To modify schematic structure, call:
+
+        rename_pin()
+        delete_instance()
+        replace_instance_master()
+        reconnect_instance_terminal()
+        restore_instance()
+        array_instance()
+        """
+        self.instances['XN0'].design(w=wn, l=lch, nf=nfn, intent=intent)
+        self.instances['XP0'].design(w=wp, l=lch, nf=nfp, intent=intent)
+
+        self.design_dummy_transistors(dum_info, 'XDUM', 'VDD', 'VSS')

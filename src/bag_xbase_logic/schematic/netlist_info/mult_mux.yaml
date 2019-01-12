@@ -1,0 +1,80 @@
+lib_name: xbase_logic_templates
+cell_name: mult_mux
+pins: [ "VDD", "VSS", "i", "sel", "o" ]
+instances:
+  PIN1:
+    lib_name: basic
+    cell_name: iopin
+    instpins: {}
+  PIN0:
+    lib_name: basic
+    cell_name: iopin
+    instpins: {}
+  PIN3:
+    lib_name: basic
+    cell_name: ipin
+    instpins: {}
+  PIN2:
+    lib_name: basic
+    cell_name: ipin
+    instpins: {}
+  PIN5:
+    lib_name: basic
+    cell_name: opin
+    instpins: {}
+  XDUM:
+    lib_name: xbase_logic_templates
+    cell_name: 2to1mux
+    instpins:
+      i0:
+        direction: input
+        net_name: "i"
+        num_bits: 1
+      VSS:
+        direction: inputOutput
+        net_name: "VSS"
+        num_bits: 1
+      VDD:
+        direction: inputOutput
+        net_name: "VDD"
+        num_bits: 1
+      o:
+        direction: output
+        net_name: "o"
+        num_bits: 1
+      i1:
+        direction: input
+        net_name: "i"
+        num_bits: 1
+      sel:
+        direction: input
+        net_name: "sel"
+        num_bits: 1
+  XMUX:
+    lib_name: xbase_logic_templates
+    cell_name: 2to1mux
+    instpins:
+      i0:
+        direction: input
+        net_name: "i"
+        num_bits: 1
+      VSS:
+        direction: inputOutput
+        net_name: "VSS"
+        num_bits: 1
+      VDD:
+        direction: inputOutput
+        net_name: "VDD"
+        num_bits: 1
+      o:
+        direction: output
+        net_name: "o"
+        num_bits: 1
+      i1:
+        direction: input
+        net_name: "i"
+        num_bits: 1
+      sel:
+        direction: input
+        net_name: "sel"
+        num_bits: 1

@@ -1,0 +1,19 @@
+// VerilogA for test, white_noise, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module white_noise_source(p, n);
+inout p;
+inout n;
+electrical p;
+electrical n;
+
+parameter real T = 200;
+parameter real R = 10e3;
+parameter real k = 1.38e-23;
+
+analog
+V(p,n) <+ white_noise(4*`P_K*T*R,"thermal");
+
+endmodule

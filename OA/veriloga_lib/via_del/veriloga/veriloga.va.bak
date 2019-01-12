@@ -1,0 +1,30 @@
+// VerilogA for veriloga_lib, thermal_ctrl, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+// VerilogA for Invctle, thermal_control, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+`define N 32
+
+module via_del(in, out);
+
+input [`N-1:0] in;
+output [`N-1:0] out;
+electrical [`N-1:0] in, out;
+
+parameter real del = 0 from [0:inf);
+
+integer i;
+
+analog begin
+
+    generate i (0, `N-1)
+        V(out[i]) <+ absdelay(V(in[i]), del);
+
+end
+endmodule
+

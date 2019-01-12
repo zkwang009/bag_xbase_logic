@@ -1,0 +1,184 @@
+lib_name: xbase_logic_templates
+cell_name: inv_PI_bk
+pins: [ "clk_i", "VSS", "clkm", "VDD", "ctrl", "clk_q", "clk_ib", "clk_qb", "clko", "clkob" ]
+instances:
+  PIN8:
+    lib_name: basic
+    cell_name: iopin
+    instpins: {}
+  PIN9:
+    lib_name: basic
+    cell_name: iopin
+    instpins: {}
+  PIN7:
+    lib_name: basic
+    cell_name: iopin
+    instpins: {}
+  XPI_QB:
+    lib_name: xbase_logic_templates
+    cell_name: inv_PI_cell
+    instpins:
+      VSS:
+        direction: inputOutput
+        net_name: "VSS"
+        num_bits: 1
+      VDD:
+        direction: inputOutput
+        net_name: "VDD"
+        num_bits: 1
+      clk_o:
+        direction: inputOutput
+        net_name: "clkm"
+        num_bits: 1
+      clk:
+        direction: input
+        net_name: "clk_qb"
+        num_bits: 1
+      ctrl:
+        direction: input
+        net_name: "ctrl"
+        num_bits: 1
+  XPI_Q:
+    lib_name: xbase_logic_templates
+    cell_name: inv_PI_cell
+    instpins:
+      VSS:
+        direction: inputOutput
+        net_name: "VSS"
+        num_bits: 1
+      VDD:
+        direction: inputOutput
+        net_name: "VDD"
+        num_bits: 1
+      clk_o:
+        direction: inputOutput
+        net_name: "clkm"
+        num_bits: 1
+      clk:
+        direction: input
+        net_name: "clk_q"
+        num_bits: 1
+      ctrl:
+        direction: input
+        net_name: "ctrl"
+        num_bits: 1
+  XPI_IB:
+    lib_name: xbase_logic_templates
+    cell_name: inv_PI_cell
+    instpins:
+      VSS:
+        direction: inputOutput
+        net_name: "VSS"
+        num_bits: 1
+      VDD:
+        direction: inputOutput
+        net_name: "VDD"
+        num_bits: 1
+      clk_o:
+        direction: inputOutput
+        net_name: "clkm"
+        num_bits: 1
+      clk:
+        direction: input
+        net_name: "clk_ib"
+        num_bits: 1
+      ctrl:
+        direction: input
+        net_name: "ctrl"
+        num_bits: 1
+  XPI_I:
+    lib_name: xbase_logic_templates
+    cell_name: inv_PI_cell
+    instpins:
+      VSS:
+        direction: inputOutput
+        net_name: "VSS"
+        num_bits: 1
+      VDD:
+        direction: inputOutput
+        net_name: "VDD"
+        num_bits: 1
+      clk_o:
+        direction: inputOutput
+        net_name: "clkm"
+        num_bits: 1
+      clk:
+        direction: input
+        net_name: "clk_i"
+        num_bits: 1
+      ctrl:
+        direction: input
+        net_name: "ctrl"
+        num_bits: 1
+  PIN4:
+    lib_name: basic
+    cell_name: ipin
+    instpins: {}
+  PIN3:
+    lib_name: basic
+    cell_name: ipin
+    instpins: {}
+  PIN2:
+    lib_name: basic
+    cell_name: ipin
+    instpins: {}
+  PIN1:
+    lib_name: basic
+    cell_name: ipin
+    instpins: {}
+  PIN0:
+    lib_name: basic
+    cell_name: ipin
+    instpins: {}
+  PIN5:
+    lib_name: basic
+    cell_name: opin
+    instpins: {}
+  PIN6:
+    lib_name: basic
+    cell_name: opin
+    instpins: {}
+  XDUM:
+    lib_name: BAG_prim
+    cell_name: nmos4_fast
+    instpins:
+      S:
+        direction: inputOutput
+        net_name: "VSS"
+        num_bits: 1
+      D:
+        direction: inputOutput
+        net_name: "VSS"
+        num_bits: 1
+      B:
+        direction: inputOutput
+        net_name: "VSS"
+        num_bits: 1
+      G:
+        direction: inputOutput
+        net_name: "VSS"
+        num_bits: 1
+  XBUF:
+    lib_name: xbase_logic_templates
+    cell_name: buffer
+    instpins:
+      data:
+        direction: input
+        net_name: "clkm"
+        num_bits: 1
+      data_o:
+        direction: output
+        net_name: "clko"
+        num_bits: 1
+      data_ob:
+        direction: inputOutput
+        net_name: "clkob"
+        num_bits: 1
+      VDD:
+        direction: inputOutput
+        net_name: "VDD"
+        num_bits: 1
+      VSS:
+        direction: inputOutput
+        net_name: "VSS"
+        num_bits: 1

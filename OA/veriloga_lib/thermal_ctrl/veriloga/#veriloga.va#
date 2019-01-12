@@ -1,0 +1,9 @@
+// VerilogA for veriloga_lib, thermal_ctrl, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module thermal_ctrl;
+serdes_bm_testbenddd
+
+endmodule

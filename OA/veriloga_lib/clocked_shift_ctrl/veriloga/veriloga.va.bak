@@ -1,0 +1,89 @@
+// VerilogA for veriloga_lib, thermal_ctrl, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+// VerilogA for Invctle, thermal_control, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+`define N 16
+
+module clocked_shift_ctrl(clk, out);
+
+input clk;
+output [`N-1:0] out;
+
+electrical clk;
+electrical [`N-1:0] out;
+
+parameter integer pi_res = 8 from [0:inf);
+parameter integer init_code = 0 from [0:inf);
+parameter integer shift_mode = 0 from [0:1];
+parameter integer logic_mode = 0 from [0:1];
+parameter real trise = 1p from [0:inf);
+parameter real tfall = 1p from [0:inf);
+parameter real tdel = 0 from [0:inf);
+parameter real vlogic_high = 1.2 from [0:inf);
+parameter real vlogic_low = 0 from [0:inf);
+parameter real vtrans_clk = 0.6 from (0:inf);
+
+real data[`N-1:0];
+integer i, quad_res, num, value;
+
+analog begin
+
+	//initial step
+    @(initial_step) begin
+		if (pi_res%4!=0) begin
+			$strobe("We need pi_res being divisible by 4!");
+			$finish;
+		end
+		quad_res = pi_res / 4;
+		num = init_code;
+
+		// give value to useless bits
+		for (i=pi_res; i<`N; i=i+1)
+			data[i] = (logic_mode==0) ? vlogic_low : vlogic_high;
+    end
+
+	// get output
+	for (i=0; i<pi_res; i=i+1) begin
+		if (num+quad_res<pi_res)
+    			if ((i>=num) && (i<num+quad_res))
+				value = 1;
+			else
+				value = 0;
+		else
+			if(i>=num || i<num+quad_res-pi_res)
+				value = 1;
+			else
+				value = 0;
+		if (logic_mode==0)
+			data[i] = (value==1) ? vlogic_high: vlogic_low; 
+		else
+			data[i] = (value==1) ? vlogic_low: vlogic_high;
+        //$strobe("data[%d] is %d",i, data[i]);
+    end
+
+	// increase number
+	@(cross(V(clk) - vtrans_clk, +1)) begin
+		if (shift_mode==0)
+			num = num + 1;
+		else
+			num = num - 1;
+		// keep num in bound
+		if (num >= pi_res || num < 0) 
+			num = 0;
+
+		for(i=0; i<pi_res; i=i+1)
+			$strobe("data[%f] is %f",i, data[i]);
+    end
+
+    generate i (0, `N-1)
+        V(out[i]) <+ transition(data[i],tdel,trise,tfall);
+
+end
+endmodule
+

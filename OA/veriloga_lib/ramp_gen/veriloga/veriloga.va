@@ -1,0 +1,53 @@
+// VerilogA for veriloga_lib, ramp_gen, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module ramp_gen(clk, iout, vss);
+
+input clk;
+inout iout;
+inout vss;
+
+electrical clk;
+electrical iout;
+electrical vss;
+
+parameter real i_step = 100u from [0: inf);
+parameter integer step_num = 9 from [1: inf);
+
+parameter real trise = 1p from [0:inf);
+parameter real tfall = 1p from [0:inf);
+parameter real tdel = 0 from [0:inf);
+parameter real vtrans_clk = 0.9 from (0:inf);
+
+integer i;
+real i_val;
+
+analog begin
+
+	@(initial_step) begin
+		i = 0;
+		i_val = 0;
+	end
+
+	@(cross(V(clk) - vtrans_clk, +1)) begin
+		if (i < step_num-1) begin
+			i_val = i_val + i_step;
+			i = i + 1;
+		end
+		else if (i < 2*(step_num-1)) begin
+			i_val = i_val - i_step;
+			i = i + 1;
+		end
+		else begin
+			i = 1;
+			i_val = i_step;
+		end
+	end
+
+	I(iout, vss) <+ transition(-i_val, tdel, trise, tfall);
+
+end
+
+endmodule

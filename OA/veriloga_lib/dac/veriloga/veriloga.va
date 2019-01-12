@@ -1,0 +1,37 @@
+// VerilogA for veriloga_lib, dac, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+`define N 9
+
+module dac(in, vout);
+
+input [`N-1:0] in;
+output vout;
+
+electrical [`N-1:0] in;
+electrical vout;
+
+parameter real trise = 1p from [0:inf);
+parameter real tfall = 1p from [0:inf);
+parameter real tdel = 0 from [0:inf);
+parameter real vref_high = 1 from [0:inf);
+parameter real vref_low = 0 from [0:inf);
+parameter real vtrans = 0.5 from [0:inf);
+
+integer num;
+integer scale;
+
+analog begin
+    num = 0;
+    scale = 1;
+
+    generate i (0,`N-1) begin
+        num = num + ((V(in[i]) > vtrans) ? scale:0);
+        scale = scale*2;
+    end
+
+    V(vout) <+ transition(num*(vref_high-vref_low)/pow(2,`N)+vref_low, tdel, trise, tfall);
+
+end
+endmodule

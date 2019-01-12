@@ -1,0 +1,401 @@
+lib_name: bag_xbase_logic
+cell_name: test
+view_name: schematic
+bbox:
+  - -164
+  - -690
+  - 144
+  - 154
+terminals:
+  {}
+shapes:
+  -
+    - 5
+    - layer: 228
+      purpose: 4294967295
+      net: clk
+      points:
+        -
+          - -160
+          - -300
+        -
+          - -120
+          - -300
+  -
+    - 7
+    - layer: 228
+      purpose: 237
+      net: clk
+      origin:
+        - -140
+        - -293
+      alignment: 5
+      orient: 0
+      font: 5
+      height: 10
+      overbar: false
+      visible: true
+      drafting: true
+      text: clk
+  -
+    - 5
+    - layer: 228
+      purpose: 4294967295
+      net: rst
+      points:
+        -
+          - -160
+          - -570
+        -
+          - -120
+          - -570
+  -
+    - 7
+    - layer: 228
+      purpose: 237
+      net: rst
+      origin:
+        - -140
+        - -563
+      alignment: 5
+      orient: 0
+      font: 5
+      height: 10
+      overbar: false
+      visible: true
+      drafting: true
+      text: rst
+  -
+    - 5
+    - layer: 228
+      purpose: 4294967295
+      net: VDD
+      points:
+        -
+          - -10
+          - -210
+        -
+          - -10
+          - -170
+  -
+    - 7
+    - layer: 228
+      purpose: 237
+      net: VDD
+      origin:
+        - -17
+        - -190
+      alignment: 5
+      orient: 6
+      font: 5
+      height: 10
+      overbar: false
+      visible: true
+      drafting: true
+      text: VDD
+  -
+    - 5
+    - layer: 228
+      purpose: 4294967295
+      net: VSS
+      points:
+        -
+          - -10
+          - -690
+        -
+          - -10
+          - -650
+  -
+    - 7
+    - layer: 228
+      purpose: 237
+      net: VSS
+      origin:
+        - -17
+        - -670
+      alignment: 5
+      orient: 6
+      font: 5
+      height: 10
+      overbar: false
+      visible: true
+      drafting: true
+      text: VSS
+  -
+    - 5
+    - layer: 228
+      purpose: 4294967295
+      net: VSS
+      points:
+        -
+          - -10
+          - -420
+        -
+          - -10
+          - -380
+  -
+    - 7
+    - layer: 228
+      purpose: 237
+      net: VSS
+      origin:
+        - -17
+        - -400
+      alignment: 5
+      orient: 6
+      font: 5
+      height: 10
+      overbar: false
+      visible: true
+      drafting: true
+      text: VSS
+  -
+    - 5
+    - layer: 228
+      purpose: 4294967295
+      net: VDD
+      points:
+        -
+          - -10
+          - -480
+        -
+          - -10
+          - -440
+  -
+    - 7
+    - layer: 228
+      purpose: 237
+      net: VDD
+      origin:
+        - -17
+        - -460
+      alignment: 5
+      orient: 6
+      font: 5
+      height: 10
+      overbar: false
+      visible: true
+      drafting: true
+      text: VDD
+  -
+    - 5
+    - layer: 228
+      purpose: 4294967295
+      net: clk_ib
+      points:
+        -
+          - 100
+          - -270
+        -
+          - 140
+          - -270
+  -
+    - 7
+    - layer: 228
+      purpose: 237
+      net: clk_ib
+      origin:
+        - 120
+        - -263
+      alignment: 5
+      orient: 0
+      font: 5
+      height: 10
+      overbar: false
+      visible: true
+      drafting: true
+      text: clk_ib
+  -
+    - 5
+    - layer: 228
+      purpose: 4294967295
+      net: clk_i
+      points:
+        -
+          - 100
+          - -300
+        -
+          - 140
+          - -300
+  -
+    - 7
+    - layer: 228
+      purpose: 237
+      net: clk_i
+      origin:
+        - 120
+        - -293
+      alignment: 5
+      orient: 0
+      font: 5
+      height: 10
+      overbar: false
+      visible: true
+      drafting: true
+      text: clk_i
+  -
+    - 5
+    - layer: 228
+      purpose: 4294967295
+      net: rst_i
+      points:
+        -
+          - 100
+          - -570
+        -
+          - 140
+          - -570
+  -
+    - 7
+    - layer: 228
+      purpose: 237
+      net: rst_i
+      origin:
+        - 120
+        - -563
+      alignment: 5
+      orient: 0
+      font: 5
+      height: 10
+      overbar: false
+      visible: true
+      drafting: true
+      text: rst_i
+  -
+    - 5
+    - layer: 228
+      purpose: 4294967295
+      net: rst_ib
+      points:
+        -
+          - 100
+          - -540
+        -
+          - 140
+          - -540
+  -
+    - 7
+    - layer: 228
+      purpose: 237
+      net: rst_ib
+      origin:
+        - 120
+        - -533
+      alignment: 5
+      orient: 0
+      font: 5
+      height: 10
+      overbar: false
+      visible: true
+      drafting: true
+      text: rst_ib
+instances:
+  X1:
+    lib_name: bag_xbase_logic
+    cell_name: dff_strst
+    view_name: symbol
+    xform:
+      - -110
+      - 70
+      - 0
+    bbox:
+      - -114
+      - -134
+      - 94
+      - 154
+    connections:
+      VDD: net13
+      VSS: net12
+      clk: net16
+      iclk: net10
+      iclkb: net8
+      in: net1
+      latch: net9
+      mem1: net7
+      mem2: net6
+      out: net15
+      rst: net11
+      rstb: net5
+      rstm1: net4
+      rstm2: net3
+      st: net14
+      stb: net2
+    params:
+      {}
+    is_primitive: false
+  XCLKBUF:
+    lib_name: bag_xbase_logic
+    cell_name: buffer
+    view_name: symbol
+    xform:
+      - -120
+      - -300
+      - 0
+    bbox:
+      - -124
+      - -384
+      - 104
+      - -206
+    connections:
+      VDD: VDD
+      VSS: VSS
+      data: clk
+      data_o: clk_i
+      data_ob: clk_ib
+    params:
+      {}
+    is_primitive: false
+  XRSTBUF:
+    lib_name: bag_xbase_logic
+    cell_name: buffer
+    view_name: symbol
+    xform:
+      - -120
+      - -570
+      - 0
+    bbox:
+      - -124
+      - -654
+      - 104
+      - -476
+    connections:
+      VDD: VDD
+      VSS: VSS
+      data: rst
+      data_o: rst_i
+      data_ob: rst_ib
+    params:
+      {}
+    is_primitive: false
+props:
+  connectivityLastUpdated:
+    - 0
+    - 2632
+  instance#:
+    - 0
+    - 2
+  lastSchematicExtraction:
+    - 4
+    - time_val: 1546199838
+  net#:
+    - 0
+    - 16
+  schGeometryLastUpdated:
+    - 0
+    - 2632
+  schGeometryVersion:
+    - 3
+    - sch.ds.gm.1.4
+  schXtrVersion:
+    - 3
+    - sch.10.0
+app_defs:
+  _dbLastSavedCounter:
+    - 0
+    - 2632
+  _dbvCvTimeStamp:
+    - 0
+    - 2632
+  cdbRevision:
+    - 0
+    - 227612

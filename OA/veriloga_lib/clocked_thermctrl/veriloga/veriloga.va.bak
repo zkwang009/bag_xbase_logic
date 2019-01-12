@@ -1,0 +1,64 @@
+// VerilogA for veriloga_lib, thermal_ctrl, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+// VerilogA for Invctle, thermal_control, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+`define N 16
+
+module clocked_therm_ctrl(clk, out);
+
+input clk;
+output [`N-1:0] out;
+
+electrical clk;
+electrical [`N-1:0] out;
+
+parameter integer num1 = 0 from [0:inf);
+parameter integer num2 = 0 from [0:inf);
+parameter integer mode = 0 from [0:1];
+parameter real trise = 1p from [0:inf);
+parameter real tfall = 1p from [0:inf);
+parameter real tdel = 0 from [0:inf);
+parameter real vlogic_high = 1.2 from [0:inf);
+parameter real vlogic_low = 0 from [0:inf);
+parameter real vtrans_clk = 0.6 from (0:inf);
+
+integer data[`N-1:0];
+integer i;
+integer num;
+
+analog begin
+    @(initial_step) num = num1;
+
+    @(cross(V(clk) - vtrans_clk, +1)) begin
+        if (num > num2)
+            num = num1;
+        else
+            num = num + 1;
+    end
+
+    for (i=0; i<`N; i=i+1) begin
+        if (mode==0)
+            if (i<num)
+                data[i] = vlogic_high;
+            else
+                data[i] = vlogic_low;
+        else
+            if (i<num)
+                data[i] = vlogic_low;
+            else
+                data[i] = vlogic_high;
+        //$strobe("data[%d] is %d",i, data[i]);
+    end
+
+generate i (0, `N-1)
+    V(out[i]) <+ transition(data[i],tdel,trise,tfall);
+
+end
+endmodule
+
